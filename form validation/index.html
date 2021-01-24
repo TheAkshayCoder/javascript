@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation using javaScript </title>
+    <style>
+        body {
+            padding: 2% 2%;
+        }
+
+        .formdesign {
+            font-size: 2rem;
+            padding: 2% 2%;
+            width:50%
+        }
+
+        .formerror {
+            color: red;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to form Validation</h1>
+    <form action="/myaction.php" name="myForm" onsubmit="return validateForm()" method="POST">
+        <div class="formdesign" id="name">
+            Name: <input type="text" name="fname"> <span class="formerror"></span>
+        </div>
+
+        <div class="formdesign" id="email">
+            Email: <input type="email" name="femail" required> <span class="formerror"></span>
+        </div>
+
+        <div class="formdesign" id="phone">
+            Phone: <input type="phone" name="fphone" required> <span class="formerror"></span>
+        </div>
+
+        <div class="formdesign" id="pass">
+            Password: <input type="password" name="fpass" required> <span class="formerror"></span>
+        </div>
+        
+        <div class="formdesign" id="pass">
+            Confirm Password: <input type="password" name="fcpass" required> <span class="formerror"></span>
+        </div>
+
+        <input class="btn" type="submit" value="submit">
+    </form>
+</body>
+
+<script>
+    function seterror(id,error){
+        //sets error inside tag of id
+        let element=document.getElementById(id);
+        element.getElementsByClassName('formerror')[0].innerHTML=error;
+    }
+    
+    function clearErrors(){
+
+        let errors=document.getElementsByClassName('formerror');
+        for(let item of errors)
+        {
+            items.innerHTML="";
+        }
+    }
+
+    function validateForm(){
+       var name=document.forms['myForm']['fname'].value;
+       clearErrors();
+
+       if (name.length==0){
+           seterror('name','**Name field is mandatory')
+           return false
+       }
+
+       if (name.length<3){
+           seterror('name','**name should be greater than 2 characters')
+           return false
+       }
+
+       var email=document.forms['myForm']['femail'].value;
+       if (email.length>15){
+           seterror('email','**email length is too long');
+           return false
+       }
+
+       var phone=document.forms['myForm']['fphone'].value;
+       if (phone.length!=10){
+           seterror('phone','**phone number length should be equal to 10 digits');
+           return false
+       }
+
+       var password=document.forms['myForm']['fpass'].value;
+       if (password.length>15){
+           seterror('password','**password should be atleast 6 characters');
+           return false
+       }
+
+       var cpassword=document.forms['myForm']['fcpass'].value;
+       if (cpassword!=password){
+           seterror('cpass','**password and confirm password should match');
+           return false
+       }
+
+    }
+</script>
+</html>
